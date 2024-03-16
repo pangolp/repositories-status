@@ -14,21 +14,26 @@
     <p>This simple tool aims to use the GitHub API to bring the organization's repositories and have a preview of their status. Being able to know how many pull requests are open, as well as the issues and other data.</p>
     <p>Each of the repositories has a link to it, as well as to the issues and pull requests. The default search is 100. We hope they can be sorted in the future by the number of open pull requests or issues.</p>
     <div id="app">
-        <div v-for="repository in repositories">
-            <ul>
-                <li>
-                    <strong>
-                        <a target="_blank" :href="repository.html_url">{{ repository.name }}</a>
-                    </strong>: {{ repository.description }}
-                </li>
-            </ul>
-            <span>
-                <img :src="`https://img.shields.io/github/license/azerothcore/${repository.name}.svg`" :alt="repository.name">
-                <img :src="`https://img.shields.io/github/stars/azerothcore/${repository.name}.svg`" :alt="repository.name">
-                <img :src="`https://img.shields.io/github/forks/azerothcore/${repository.name}.svg`" :alt="repository.name">
-                <a :href="`https://github.com/azerothcore/${repository.name}/issues`" target="_blank"><img :src="`https://img.shields.io/github/issues/azerothcore/${repository.name}.svg`" :alt="repository.name"></a>
-                <a :href="`https://github.com/azerothcore/${repository.name}/pulls`" target="_blank"><img :src="`https://img.shields.io/github/issues-pr/azerothcore/${repository.name}.svg`" :alt="repository.name"></a>
-            </span>
+        <div v-if="loading">
+            <h3>Searching repositories...</h3>
+        </div>
+        <div v-else="loading">
+            <div v-for="repository in repositories">
+                <ul>
+                    <li>
+                        <strong>
+                            <a target="_blank" :href="repository.html_url">{{ repository.name }}</a>
+                        </strong>: {{ repository.description }}
+                    </li>
+                </ul>
+                <span>
+                    <img :src="`https://img.shields.io/github/license/azerothcore/${repository.name}.svg`" :alt="repository.name">
+                    <img :src="`https://img.shields.io/github/stars/azerothcore/${repository.name}.svg`" :alt="repository.name">
+                    <img :src="`https://img.shields.io/github/forks/azerothcore/${repository.name}.svg`" :alt="repository.name">
+                    <a :href="`https://github.com/azerothcore/${repository.name}/issues`" target="_blank"><img :src="`https://img.shields.io/github/issues/azerothcore/${repository.name}.svg`" :alt="repository.name"></a>
+                    <a :href="`https://github.com/azerothcore/${repository.name}/pulls`" target="_blank"><img :src="`https://img.shields.io/github/issues-pr/azerothcore/${repository.name}.svg`" :alt="repository.name"></a>
+                </span>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>

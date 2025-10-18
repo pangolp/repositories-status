@@ -21,30 +21,26 @@ new Vue({
     },
     computed: {
         filteredRepositories() {
-            let filtered = this.repositories
+            let filtered = this.repositories;
 
             if (this.showOnlyActive) {
-                filtered = filtered.filter(repo => repo.open_issues_count > 0)
+                filtered = filtered.filter(repo => repo.open_issues_count > 0);
             }
 
             if (this.searchQuery) {
-                const query = this.searchQuery.toLowerCase().trim()
+                const query = this.searchQuery.toLowerCase().trim();
                 filtered = filtered.filter(repo => {
-                    const name = repo.name ? repo.name.toLowerCase() : ''
-                    const description = repo.description ? repo.description.toLowerCase() : ''
-                    const topics = repo.topics ? repo.topics.join(' ').toLowerCase() : ''
+                    const name = repo.name ? repo.name.toLowerCase() : '';
+                    const description = repo.description ? repo.description.toLowerCase() : '';
+                    const topics = repo.topics ? repo.topics.join(' ').toLowerCase() : '';
 
-                    return name.includes(query) || 
-                           description.includes(query) || 
-                           topics.includes(query)
+                    return name.includes(query) || description.includes(query) || topics.includes(query);
                 })
             }
 
-            filtered.sort((a, b) => 
-                b.open_issues_count - a.open_issues_count
-            );
+            filtered.sort((a, b) => b.open_issues_count - a.open_issues_count);
 
-            return filtered
+            return filtered;
         },
 
         repositoryCount() {
